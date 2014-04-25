@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "trie.hpp"
-#include "unicode_functions.h"
+#include "unicode_functions.hpp"
 
 using namespace std;
 
