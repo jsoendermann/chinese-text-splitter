@@ -55,7 +55,8 @@ inline std::string Utf8SubStr(std::string& str, size_t start, size_t n = (size_t
 
 
 
-
+// TODO these two functions are very slow, because array access for utf8 strings is in
+// O(n)
 inline std::string get_char_at(std::string s, int i) {
     return Utf8SubStr(s, i, 1);
 }
