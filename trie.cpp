@@ -35,6 +35,8 @@ string Trie::feed_char(string c) {
         // If there was no final state on the path from the root to next,
         // cut off the first char and try to match the remaining string
         if (last_full_word == "") {
+            // TODO Maybe these two lines could be made faster by 
+            // using iterators directly.
             output += get_char_at(word_since_last_final_state, 0) + " ";
             string remaining_string = Utf8SubStr(word_since_last_final_state, 1);
             output += _feed_string(remaining_string);
@@ -62,11 +64,17 @@ string Trie::_feed_string(string s) {
     word_since_last_final_state = "";
     last_full_word = "";
 
-    // Feed chars to the Trie one by one
-    for (int i = 0; i < get_length(s); i++) {
-        string c = get_char_at(s, i);
+    std::string::const_iterator it = s.begin();
+    // This iterator is necessary because GetUtf8FromUnicode
+    // requires a second iterator that points to the end of the string.
+    std::string::const_iterator it2 = s.end();
+
+    while (it != s.end()) { // GetNextUnicodeFromUtf8 increases the iterator
+        auto c = GetUtf8FromUnicode(GetNextUnicodeFromUtf8(it, it2));
         output += feed_char(c);
     }
+
+
 
     return output;
 }
@@ -98,7 +106,9 @@ void Trie::add_word(string word) {
     auto state = root;
     size_t word_length = get_length(word);
 
-
+    // This could be made faster by using iterators like in _feed_string.
+    // Because this function is only used to build up the Trie when the program
+    // starts up, I prefer the more readable version for now.
     for (int i = 0; i < word_length; i++) {
         string c = get_char_at(word, i);
 
