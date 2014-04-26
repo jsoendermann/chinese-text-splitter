@@ -7,6 +7,8 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+    // TODO maybe only the call to setlocale is needed
+    setlocale(LC_ALL,"");
     wcout.imbue(locale(locale(),"",LC_CTYPE));
 
     wstring line;
