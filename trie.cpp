@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "trie.hpp"
-#include "unicode_functions.hpp"
 #include "util.hpp"
 
 using namespace std;
@@ -12,9 +11,8 @@ using namespace std;
 
 State* Trie::get_state_for_word(wstring s) {
     auto state = root;
-    size_t s_length =  get_length(s);
 
-    for (int i = 0; i < s_length; i++) {
+    for (int i = 0; i < s.length(); i++) {
         state = state->get_successor(s[i]);
 
         if (state == NULL) {
@@ -34,7 +32,7 @@ wstring Trie::feed_char(wchar_t c) {
         // If there was no final state on the path from the root to next,
         // cut off the first char and try to match the remaining string
         if (last_full_word == L"") {
-            output += add_word_to_output(get_char_at(word_since_last_final_state, 0));// + " ";
+            output += add_word_to_output(word_since_last_final_state.substr(0, 1));// + " ";
             wstring remaining_string = word_since_last_final_state.substr(1);
             output += _feed_string(remaining_string);
         // Otherwise output the word that was already matched and
@@ -94,7 +92,7 @@ Trie::Trie() {
 
 void Trie::add_word(wstring word) {
     auto state = root;
-    size_t word_length = get_length(word);
+    size_t word_length = word.length();
 
     // This could be made faster by using iterators like in _feed_string.
     // Because this function is only used to build up the Trie when the program
