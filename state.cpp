@@ -12,7 +12,7 @@ State::State() {
     is_final = false;
 }
 
-State *State::get_successor(wstring c) {
+State *State::get_successor(wchar_t c) {
     auto r = dict.find(c);
 
     if (r == dict.end()) {
@@ -23,7 +23,7 @@ State *State::get_successor(wstring c) {
     }
 }
 
-void State::add_successor(wstring c, State *successor) {
+void State::add_successor(wchar_t c, State *successor) {
     dict[c] = successor;
 }
 

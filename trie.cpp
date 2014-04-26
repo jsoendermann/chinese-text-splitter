@@ -15,9 +15,7 @@ State* Trie::get_state_for_word(wstring s) {
     size_t s_length =  get_length(s);
 
     for (int i = 0; i < s_length; i++) {
-        wstring c = get_char_at(s, i);
-
-        state = state->get_successor(c);
+        state = state->get_successor(s[i]);
 
         if (state == NULL) {
             return NULL;
@@ -26,7 +24,7 @@ State* Trie::get_state_for_word(wstring s) {
     return state;
 }
 
-wstring Trie::feed_char(wstring c) {
+wstring Trie::feed_char(wchar_t c) {
     wstring output = L"";
 
     auto next = current_state->get_successor(c);
@@ -36,8 +34,6 @@ wstring Trie::feed_char(wstring c) {
         // If there was no final state on the path from the root to next,
         // cut off the first char and try to match the remaining string
         if (last_full_word == L"") {
-            // TODO Maybe these two lines could be made faster by 
-            // using iterators directly.
             output += add_word_to_output(get_char_at(word_since_last_final_state, 0));// + " ";
             wstring remaining_string = word_since_last_final_state.substr(1);
             output += _feed_string(remaining_string);
@@ -67,9 +63,7 @@ wstring Trie::_feed_string(wstring s) {
 
     // TODO use iterator for this
     for (int i = 0; i < s.length(); i++) {
-        wstring temp = s.substr(i, 1);
-
-        output += feed_char(temp);
+        output += feed_char(s[i]);
     }
 
     return output;
@@ -106,7 +100,7 @@ void Trie::add_word(wstring word) {
     // Because this function is only used to build up the Trie when the program
     // starts up, I prefer the more readable version for now.
     for (int i = 0; i < word_length; i++) {
-        wstring c = get_char_at(word, i);
+        wchar_t c = word[i];
 
         State *next_state = state->get_successor(c);
 

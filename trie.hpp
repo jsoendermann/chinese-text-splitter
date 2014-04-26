@@ -28,7 +28,7 @@ class Trie {
         // because of recursive calls. flush has to be called after feeding all
         // characters in the string to the Trie to add the last bit of the 
         // text, that is still being processed, to the output.
-        wstring feed_char(wstring c);
+        wstring feed_char(wchar_t c);
         wstring _feed_string(wstring s);
         wstring flush();
 
