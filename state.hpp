@@ -1,5 +1,5 @@
-#ifndef __STATE_H__
-#define __STATE_H__
+#ifndef __STATE_HPP__
+#define __STATE_HPP__
 #include <unordered_map>
 
 using namespace std;

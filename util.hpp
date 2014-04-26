@@ -1,5 +1,5 @@
-#ifndef __UTIL_H__
-#define __UTIL_H__
+#ifndef __UTIL_HPP__
+#define __UTIL_HPP__
 
 #include <boost/algorithm/string.hpp>
 

@@ -1,5 +1,5 @@
-#ifndef __TRIE_H__
-#define __TRIE_H__
+#ifndef __TRIE_HPP__
+#define __TRIE_HPP__
 
 #include "state.hpp"
 
