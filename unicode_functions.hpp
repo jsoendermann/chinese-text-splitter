@@ -177,7 +177,7 @@ inline std::string Utf8SubStr(std::string& str, size_t start, size_t n = (size_t
 }
 
 inline std::wstring get_char_at(std::wstring s, int i) {
-    return wstring(s.at(i));
+    return s.substr(i, 1);
 }
 
 inline size_t get_length(std::wstring s) {

@@ -12,7 +12,7 @@ State::State() {
     is_final = false;
 }
 
-State *State::get_successor(string c) {
+State *State::get_successor(wstring c) {
     auto r = dict.find(c);
 
     if (r == dict.end()) {
@@ -23,27 +23,27 @@ State *State::get_successor(string c) {
     }
 }
 
-void State::add_successor(string c, State *successor) {
+void State::add_successor(wstring c, State *successor) {
     dict[c] = successor;
 }
 
-string State::to_string(int indent_level) {
-    string indentation = "";
+wstring State::to_string(int indent_level) {
+    wstring indentation = L"";
     for (int i = 0; i < indent_level; i++)
-        indentation += " ";
+        indentation += L" ";
 
-    string output = "";
+    wstring output = L"";
 
-    output += indentation + std::to_string(id);
+    output += indentation + std::to_wstring(id);
 
     if (is_final)
-        output += " (f)";
+        output += L" (f)";
 
-    output += ":\n";
+    output += L":\n";
 
 
     for (auto it = dict.begin(); it != dict.end(); ++it) {
-        output += indentation + " " + it->first + " -> \n";
+        output += indentation + L" " + it->first + L" -> \n";
         output += it->second->to_string(indent_level + 2);
     }
 

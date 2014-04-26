@@ -5,10 +5,11 @@
 
 using namespace boost::algorithm;
 
-string add_word_to_output(string s) {
-    replace_all(s, "\"", "\\\"");
+wstring add_word_to_output(wstring s) {
+    // TODO make this work with wstring
+    //replace_all(s, "\"", "\\\"");
 
-    return "\"" + s + "\", ";
+    return s + L" ";//"\"" + s + "\", ";
 }
 
 #endif

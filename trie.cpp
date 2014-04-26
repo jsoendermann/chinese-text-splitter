@@ -35,11 +35,11 @@ wstring Trie::feed_char(wstring c) {
     if (next == NULL) {
         // If there was no final state on the path from the root to next,
         // cut off the first char and try to match the remaining string
-        if (last_full_word == "") {
+        if (last_full_word == L"") {
             // TODO Maybe these two lines could be made faster by 
             // using iterators directly.
             output += add_word_to_output(get_char_at(word_since_last_final_state, 0));// + " ";
-            string remaining_string = Utf8SubStr(word_since_last_final_state, 1);
+            wstring remaining_string = word_since_last_final_state.substr(1);
             output += _feed_string(remaining_string);
         // Otherwise output the word that was already matched and
         // only match the remaining substring
@@ -51,37 +51,32 @@ wstring Trie::feed_char(wstring c) {
         current_state = next;
         if (current_state->is_final) {
             last_full_word += word_since_last_final_state;
-            word_since_last_final_state = "";
+            word_since_last_final_state = L"";
         }
     }
     return output;
 }
 
 wstring Trie::_feed_string(wstring s) {
-    wstring output = "";
+    wstring output = L"";
 
     // Reset the matching part of the Trie
     current_state = root;
-    word_since_last_final_state = "";
-    last_full_word = "";
+    word_since_last_final_state = L"";
+    last_full_word = L"";
 
-    std::string::const_iterator it = s.begin();
-    // This iterator is necessary because GetUtf8FromUnicode
-    // requires a second iterator that points to the end of the string.
-    std::string::const_iterator it2 = s.end();
+    // TODO use iterator for this
+    for (int i = 0; i < s.length(); i++) {
+        wstring temp = s.substr(i, 1);
 
-    while (it != s.end()) { // GetNextUnicodeFromUtf8 increases the iterator
-        auto c = GetUtf8FromUnicode(GetNextUnicodeFromUtf8(it, it2));
-        output += feed_char(c);
+        output += feed_char(temp);
     }
-
-
 
     return output;
 }
 
 wstring Trie::flush() {
-    wstring output = "";
+    wstring output = L"";
 
     //output += add_word_to_output(last_full_word);// + " ";
 
@@ -97,8 +92,8 @@ Trie::Trie() {
     root = new State();
     current_state = root;
 
-    word_since_last_final_state = "";
-    last_full_word = "";
+    word_since_last_final_state = L"";
+    last_full_word = L"";
 
     current_state = root;
 }
@@ -129,13 +124,13 @@ void Trie::add_word(wstring word) {
 }
 
 void Trie::add_words(vector<wstring> words) {
-    for (string word : words) 
+    for (wstring word : words) 
         add_word(word);
 }
 
 
 wstring Trie::feed_string(wstring s) {
-    string output = "";
+    wstring output = L"";
 
     output += _feed_string(s);
     output += flush();

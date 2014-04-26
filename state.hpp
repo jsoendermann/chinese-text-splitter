@@ -7,7 +7,7 @@ using namespace std;
 class State {
     private:
         int id; // This is only used in to_string
-        unordered_map<string, State*> dict;
+        unordered_map<wstring, State*> dict;
         
 
     public:
@@ -15,9 +15,9 @@ class State {
 
         State();
 
-        State *get_successor(string c);
-        void add_successor(string c, State* successor);
+        State *get_successor(wstring c);
+        void add_successor(wstring c, State* successor);
 
-        string to_string(int indent_level);
+        wstring to_string(int indent_level);
 };
 #endif
