@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     Trie *trad_trie = new Trie();
     trad_trie->add_words(trad_words);
 
-    //wcout << trad_trie->to_string() << endl;
+    wcout << trad_trie->to_string() << endl;
 
     cout << "Done!" << "\n";
 
