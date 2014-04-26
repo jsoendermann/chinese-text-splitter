@@ -22,8 +22,8 @@ State* Trie::get_state_for_word(wstring s) {
     return state;
 }
 
-wstring Trie::feed_char(wchar_t c) {
-    wstring output = L"";
+vector<wstring> Trie::feed_char(wchar_t c) {
+    vector<wstring> output;
 
     auto next = current_state->get_successor(c);
     word_since_last_final_state += c;
@@ -32,14 +32,17 @@ wstring Trie::feed_char(wchar_t c) {
         // If there was no final state on the path from the root to next,
         // cut off the first char and try to match the remaining string
         if (last_full_word == L"") {
-            output += add_word_to_output(word_since_last_final_state.substr(0, 1));// + " ";
-            wstring remaining_string = word_since_last_final_state.substr(1);
-            output += _feed_string(remaining_string);
+            output.push_back(word_since_last_final_state.substr(0, 1));
+
+            vector<wstring> remaining_words = _feed_string(word_since_last_final_state.substr(1));
+            output.insert(output.end(), remaining_words.begin(), remaining_words.end());
         // Otherwise output the word that was already matched and
         // only match the remaining substring
         } else {
-            output += add_word_to_output(last_full_word);//  + " ";
-            output += _feed_string(word_since_last_final_state);
+            output.push_back(last_full_word);
+
+            vector<wstring> remaining_words = _feed_string(word_since_last_final_state);
+            output.insert(output.end(), remaining_words.begin(), remaining_words.end());
         }
     } else {
         current_state = next;
@@ -51,8 +54,8 @@ wstring Trie::feed_char(wchar_t c) {
     return output;
 }
 
-wstring Trie::_feed_string(wstring s) {
-    wstring output = L"";
+vector<wstring> Trie::_feed_string(wstring s) {
+    vector<wstring> output;
 
     // Reset the matching part of the Trie
     current_state = root;
@@ -61,20 +64,21 @@ wstring Trie::_feed_string(wstring s) {
 
     // TODO use iterator for this
     for (int i = 0; i < s.length(); i++) {
-        output += feed_char(s[i]);
+        vector<wstring> result = feed_char(s[i]);
+        output.insert(output.end(), result.begin(), result.end());
     }
 
     return output;
 }
 
-wstring Trie::flush() {
-    wstring output = L"";
-
-    //output += add_word_to_output(last_full_word);// + " ";
+vector<wstring> Trie::flush() {
+    vector<wstring> output;
 
     while (current_state != root) {
-        output += add_word_to_output(last_full_word);
-        output += _feed_string(word_since_last_final_state);
+        output.push_back(last_full_word);
+
+        vector<wstring> result = _feed_string(word_since_last_final_state);
+        output.insert(output.end(), result.begin(), result.end());
     }
 
     return output;
@@ -121,11 +125,13 @@ void Trie::add_words(vector<wstring> words) {
 }
 
 
-wstring Trie::feed_string(wstring s) {
-    wstring output = L"";
+vector<wstring> Trie::feed_string(wstring s) {
+    vector<wstring> output;
 
-    output += _feed_string(s);
-    output += flush();
+    output = _feed_string(s);
+
+    vector<wstring> flush_result = flush();
+    output.insert(output.end(), flush_result.begin(), flush_result.end());
 
     return output;
 }

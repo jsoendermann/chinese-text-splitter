@@ -24,13 +24,13 @@ class Trie {
         State* get_state_for_word(wstring s);  
 
         // These three functions are used to match words in a string.
-        // _feed_string is the internal version of feed_string, it is necessary
+        // _feed_string is the internal version of feed_string. It is necessary
         // because of recursive calls. flush has to be called after feeding all
-        // characters in the string to the Trie to add the last bit of the 
-        // text, that is still being processed, to the output.
-        wstring feed_char(wchar_t c);
-        wstring _feed_string(wstring s);
-        wstring flush();
+        // characters in the string to the Trie to match the last bit of the 
+        // text, that is still being processed and add it to the output.
+        vector<wstring> feed_char(wchar_t c);
+        vector<wstring> _feed_string(wstring s);
+        vector<wstring> flush();
 
 
     public:
@@ -40,7 +40,7 @@ class Trie {
         void add_words(vector<wstring> words);
 
         // This function calls _feed_string and flush
-        wstring feed_string(wstring s);
+        vector<wstring> feed_string(wstring s);
 
         wstring to_string();
 };

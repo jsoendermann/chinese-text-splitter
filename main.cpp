@@ -65,12 +65,14 @@ int main(int argc, char **argv) {
 
     wcout << output << endl;*/
 
-    wstring output = trad_trie->feed_string(test_string);
+    auto output = trad_trie->feed_string(test_string);
 
-    trim(output);
+    //trim(output);
 
-
-    wcout << output << '\n';
+    for (auto word : output) {
+        wcout << word << " ";
+    }
+    wcout << endl;
 }
 
 
