@@ -176,10 +176,10 @@ inline std::string Utf8SubStr(std::string& str, size_t start, size_t n = (size_t
                 Utf8PositionToIterator(str, start + n));
 }
 
-inline std::string get_char_at(std::string s, int i) {
-    return Utf8SubStr(s, i, 1);
+inline std::wstring get_char_at(std::wstring s, int i) {
+    return wstring(s.at(i));
 }
 
-inline size_t get_length(std::string s) {
-    return Utf8StringSize(s);
+inline size_t get_length(std::wstring s) {
+    return s.length();
 }

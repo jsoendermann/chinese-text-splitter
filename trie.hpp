@@ -17,32 +17,32 @@ class Trie {
         // is the last matched word. word_since_last_final_state contains
         // the rest, i.e. the chars of the states from the last final state
         // to current_state
-        string last_full_word, word_since_last_final_state;
+        wstring last_full_word, word_since_last_final_state;
 
         // If s is in the Trie, this function returns its
         // state (starting from the root), otherwise it returns NULL
-        State* get_state_for_word(string s);  
+        State* get_state_for_word(wstring s);  
 
         // These three functions are used to match words in a string.
         // _feed_string is the internal version of feed_string, it is necessary
         // because of recursive calls. flush has to be called after feeding all
         // characters in the string to the Trie to add the last bit of the 
         // text, that is still being processed, to the output.
-        string feed_char(string c);
-        string _feed_string(string s);
-        string flush();
+        wstring feed_char(wstring c);
+        wstring _feed_string(wstring s);
+        wstring flush();
 
 
     public:
         Trie();
 
-        void add_word(string word);
-        void add_words(vector<string> words);
+        void add_word(wstring word);
+        void add_words(vector<wstring> words);
 
         // This function calls _feed_string and flush
-        string feed_string(string s);
+        wstring feed_string(wstring s);
 
-        string to_string();
+        wstring to_string();
 };
 
 #endif

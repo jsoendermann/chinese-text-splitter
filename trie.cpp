@@ -9,12 +9,12 @@
 using namespace std;
 
 
-State* Trie::get_state_for_word(string s) {
+State* Trie::get_state_for_word(wstring s) {
     auto state = root;
     size_t s_length =  get_length(s);
 
     for (int i = 0; i < s_length; i++) {
-        string c = get_char_at(s, i);
+        wstring c = get_char_at(s, i);
 
         state = state->get_successor(c);
 
@@ -25,8 +25,8 @@ State* Trie::get_state_for_word(string s) {
     return state;
 }
 
-string Trie::feed_char(string c) {
-    string output = "";
+wstring Trie::feed_char(wstring c) {
+    wstring output = L"";
 
     auto next = current_state->get_successor(c);
     word_since_last_final_state += c;
@@ -56,8 +56,8 @@ string Trie::feed_char(string c) {
     return output;
 }
 
-string Trie::_feed_string(string s) {
-    string output = "";
+wstring Trie::_feed_string(wstring s) {
+    wstring output = "";
 
     // Reset the matching part of the Trie
     current_state = root;
@@ -79,8 +79,8 @@ string Trie::_feed_string(string s) {
     return output;
 }
 
-string Trie::flush() {
-    string output = "";
+wstring Trie::flush() {
+    wstring output = "";
 
     output += last_full_word + " ";
 
@@ -102,7 +102,7 @@ Trie::Trie() {
     current_state = root;
 }
 
-void Trie::add_word(string word) {
+void Trie::add_word(wstring word) {
     auto state = root;
     size_t word_length = get_length(word);
 
@@ -110,7 +110,7 @@ void Trie::add_word(string word) {
     // Because this function is only used to build up the Trie when the program
     // starts up, I prefer the more readable version for now.
     for (int i = 0; i < word_length; i++) {
-        string c = get_char_at(word, i);
+        wstring c = get_char_at(word, i);
 
         State *next_state = state->get_successor(c);
 
@@ -127,13 +127,13 @@ void Trie::add_word(string word) {
     }
 }
 
-void Trie::add_words(vector<string> words) {
+void Trie::add_words(vector<wstring> words) {
     for (string word : words) 
         add_word(word);
 }
 
 
-string Trie::feed_string(string s) {
+wstring Trie::feed_string(wstring s) {
     string output = "";
 
     output += _feed_string(s);
@@ -142,6 +142,6 @@ string Trie::feed_string(string s) {
     return output;
 }
 
-string Trie::to_string() {
+wstring Trie::to_string() {
     return root->to_string(0);
 }
