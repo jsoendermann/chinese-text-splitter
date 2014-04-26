@@ -1,12 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <boost/algorithm/string.hpp>
 
 #include "trie.hpp"
 
 using namespace std;
-using namespace boost::algorithm;
 
 int main(int argc, char **argv) {
     wcout.imbue(locale(locale(),"",LC_CTYPE));
