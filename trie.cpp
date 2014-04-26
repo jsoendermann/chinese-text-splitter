@@ -5,6 +5,7 @@
 
 #include "trie.hpp"
 #include "unicode_functions.hpp"
+#include "util.hpp"
 
 using namespace std;
 
@@ -37,13 +38,13 @@ string Trie::feed_char(string c) {
         if (last_full_word == "") {
             // TODO Maybe these two lines could be made faster by 
             // using iterators directly.
-            output += get_char_at(word_since_last_final_state, 0) + " ";
+            output += add_word_to_output(get_char_at(word_since_last_final_state, 0));// + " ";
             string remaining_string = Utf8SubStr(word_since_last_final_state, 1);
             output += _feed_string(remaining_string);
         // Otherwise output the word that was already matched and
         // only match the remaining substring
         } else {
-            output += last_full_word  + " ";
+            output += add_word_to_output(last_full_word);//  + " ";
             output += _feed_string(word_since_last_final_state);
         }
     } else {
@@ -82,12 +83,12 @@ string Trie::_feed_string(string s) {
 string Trie::flush() {
     string output = "";
 
-    output += last_full_word + " ";
+    //output += add_word_to_output(last_full_word);// + " ";
 
-    do {
+    while (current_state != root) {
+        output += add_word_to_output(last_full_word);
         output += _feed_string(word_since_last_final_state);
-        output += last_full_word + " ";
-    } while (current_state != root);
+    }
 
     return output;
 }
