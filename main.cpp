@@ -13,8 +13,9 @@ int main(int argc, char **argv) {
     wcout.imbue(locale(locale(),"",LC_CTYPE));
     
     wifstream cedict_file;
-
     cedict_file.open("cedict-data.txt");
+    // Calling imbue on the file handle is necessary to make reading
+    // utf-8 files work on OS X
     cedict_file.imbue(locale(locale(),"",LC_CTYPE));
     
     vector<wstring> trad_words, simp_words;
