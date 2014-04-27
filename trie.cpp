@@ -98,9 +98,6 @@ void Trie::add_word(wstring word) {
     auto state = root;
     size_t word_length = word.length();
 
-    // This could be made faster by using iterators like in _feed_string.
-    // Because this function is only used to build up the Trie when the program
-    // starts up, I prefer the more readable version for now.
     for (int i = 0; i < word_length; i++) {
         wchar_t c = word[i];
 
