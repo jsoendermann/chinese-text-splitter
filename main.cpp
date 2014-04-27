@@ -7,20 +7,20 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-    // TODO maybe only the call to setlocale is needed
+    // Calling setlocale is necessary to make wcout work on Linux
     setlocale(LC_ALL,"");
+    // Calling imbue is necessary to make wcout work on OS X
     wcout.imbue(locale(locale(),"",LC_CTYPE));
-
-    wstring line;
-    wstring trad, simp;
+    
     wifstream cedict_file;
-    vector<wstring> trad_words, simp_words;
 
     cedict_file.open("cedict-data.txt");
     cedict_file.imbue(locale(locale(),"",LC_CTYPE));
     
+    vector<wstring> trad_words, simp_words;
 
     if (cedict_file.is_open()) {
+        wstring line, trad, simp;
         while(getline(cedict_file, line)) {
             if (line.at(0) != L'#') {
                 size_t first_space_index = line.find(L' ');
