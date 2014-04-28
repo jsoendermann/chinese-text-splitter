@@ -17,6 +17,7 @@ class State {
 
         State();
 
+        // TODO change successor to child
         State *get_successor(wchar_t c);
         void add_successor(wchar_t c, State* successor);
 #ifdef DEBUG
