@@ -32,13 +32,6 @@ void Trie::feed_string(wstring s) {
     }
 }
 
-void Trie::flush() {
-    while (current_state != root) {
-        split_text.push_back(longest_match);
-        feed_string(string_since_last_match);
-    }
-}
-
 void Trie::feed_char(wchar_t c) {
     string_since_last_match += c;
 
@@ -71,6 +64,14 @@ void Trie::transition_to_child_state(State *child) {
         string_since_last_match = L"";
     }
 }
+
+void Trie::flush() {
+    while (current_state != root) {
+        split_text.push_back(longest_match);
+        feed_string(string_since_last_match);
+    }
+}
+
 
 Trie::Trie() {
     current_state = root;

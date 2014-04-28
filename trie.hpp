@@ -24,13 +24,12 @@ class Trie {
         State* get_state_for_word(const wstring &s);  
 
         void feed_string(wstring s);
-        // flush adds the words that are currently being processed by the trie to split_text.
-        void flush();
         void feed_char(wchar_t c);
         void no_child_for_char(wchar_t c);
         void cut_off_first_char_and_feed_rest_to_trie();
         void transition_to_child_state(State *child);
-        
+        // flush adds the words that are currently being processed by the trie to split_text.
+        void flush();
 
     public:
         Trie();
