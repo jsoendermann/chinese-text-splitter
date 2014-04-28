@@ -30,7 +30,6 @@ class Trie {
         void no_child_for_char(wchar_t c);
         void cut_off_first_char_and_feed_rest_to_trie();
         void transition_to_child_state(State *child);
-        // TODO s should be a constant reference
         
 
     public:
