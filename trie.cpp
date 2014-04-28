@@ -21,31 +21,6 @@ State* Trie::get_state_for_word(const wstring &s) {
     return state;
 }
 
-void Trie::feed_char(wchar_t c) {
-    auto next = current_state->get_successor(c);
-    string_since_last_match += c;
-
-    if (next == NULL) {
-        // If there was no final state on the path from the root to next,
-        // cut off the first char and try to match the remaining string
-        if (longest_match == L"") {
-            split_text.push_back(string_since_last_match.substr(0, 1));
-            feed_string(string_since_last_match.substr(1));
-        // Otherwise output the word that was already matched and
-        // only match the remaining substring
-        } else {
-            split_text.push_back(longest_match);
-            feed_string(string_since_last_match);
-        }
-    } else {
-        current_state = next;
-        if (current_state->is_final) {
-            longest_match += string_since_last_match;
-            string_since_last_match = L"";
-        }
-    }
-}
-
 void Trie::feed_string(wstring s) {
     // Reset the matching part of the Trie
     current_state = root;
@@ -61,6 +36,39 @@ void Trie::flush() {
     while (current_state != root) {
         split_text.push_back(longest_match);
         feed_string(string_since_last_match);
+    }
+}
+
+void Trie::feed_char(wchar_t c) {
+    string_since_last_match += c;
+
+    auto successor = current_state->get_successor(c);
+    if (successor == NULL) {
+        no_successor_for_char(c);
+    } else {
+        transition_to_successor_state(successor);
+    }
+}
+
+void Trie::no_successor_for_char(wchar_t c) {
+    if (longest_match == L"") {
+        cut_off_first_char_and_feed_rest_to_trie();
+    } else {
+        split_text.push_back(longest_match);
+        feed_string(string_since_last_match);
+    }
+}
+
+void Trie::cut_off_first_char_and_feed_rest_to_trie() {
+        split_text.push_back(string_since_last_match.substr(0, 1));
+        feed_string(string_since_last_match.substr(1));
+}
+
+void Trie::transition_to_successor_state(State *successor) {
+    current_state = successor;
+    if (current_state->is_final) {
+        longest_match += string_since_last_match;
+        string_since_last_match = L"";
     }
 }
 

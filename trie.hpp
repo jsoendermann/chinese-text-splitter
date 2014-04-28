@@ -23,12 +23,15 @@ class Trie {
         // state (starting from the root), otherwise it returns NULL
         State* get_state_for_word(const wstring &s);  
 
-        void feed_char(wchar_t c);
-        // TODO s should be a constant reference
         void feed_string(wstring s);
         // flush adds the words that are currently being processed by the trie to split_text.
         void flush();
-
+        void feed_char(wchar_t c);
+        void no_successor_for_char(wchar_t c);
+        void cut_off_first_char_and_feed_rest_to_trie();
+        void transition_to_successor_state(State *successor);
+        // TODO s should be a constant reference
+        
 
     public:
         Trie();
