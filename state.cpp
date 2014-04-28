@@ -6,8 +6,10 @@
 using namespace std;
 
 State::State() {
+#ifdef DEBUG
     static int counter = 0;
     id = counter++;
+#endif
 
     is_final = false;
 }
@@ -27,6 +29,7 @@ void State::add_successor(wchar_t c, State *successor) {
     dict[c] = successor;
 }
 
+#ifdef DEBUG
 wstring State::to_string(int indent_level) {
     wstring indentation = L"";
     for (int i = 0; i < indent_level; i++)
@@ -49,3 +52,4 @@ wstring State::to_string(int indent_level) {
 
     return output;
 }
+#endif

@@ -106,7 +106,8 @@ vector<wstring> Trie::split_string(wstring s) {
 
     return split_text;
 }
-
+#ifdef DEBUG
 wstring Trie::to_string() {
     return root->to_string(0);
 }
+#endif

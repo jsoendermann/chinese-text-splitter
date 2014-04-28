@@ -38,8 +38,9 @@ class Trie {
         void add_words(vector<wstring> words);
 
         vector<wstring> split_string(wstring s);
-
+#ifdef DEBUG
         wstring to_string();
+#endif
 };
 
 #endif
