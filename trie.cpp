@@ -55,9 +55,8 @@ void Trie::feed_string(wstring s) {
     string_since_last_match = L"";
     longest_match = L"";
 
-    // TODO use iterator for this
-    for (int i = 0; i < s.length(); i++) {
-        feed_char(s[i]);
+    for (auto it = s.begin(); it != s.end(); it++) {
+        feed_char(*it);
     }
 }
 
