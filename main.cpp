@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
     Trie *trad_trie = new Trie();
     trad_trie->add_words(trad_words);
 
-    wcout << trad_trie->to_string() << endl;
+    //wcout << trad_trie->to_string() << endl;
 
     cout << "Done!" << "\n";
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 
     wcout << output << endl;*/
 
-    auto output = trad_trie->feed_string(test_string);
+    auto output = trad_trie->split_string(test_string);
 
     //trim(output);
 
