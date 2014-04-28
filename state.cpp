@@ -44,7 +44,6 @@ wstring State::to_string(int indent_level) {
 
     output += L":\n";
 
-
     for (auto it = dict.begin(); it != dict.end(); ++it) {
         output += indentation + L" " + it->first + L" -> \n";
         output += it->second->to_string(indent_level + 2);

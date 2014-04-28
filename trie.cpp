@@ -30,13 +30,11 @@ void Trie::feed_char(wchar_t c) {
         // cut off the first char and try to match the remaining string
         if (longest_match == L"") {
             split_text.push_back(string_since_last_match.substr(0, 1));
-
             feed_string(string_since_last_match.substr(1));
         // Otherwise output the word that was already matched and
         // only match the remaining substring
         } else {
             split_text.push_back(longest_match);
-
             feed_string(string_since_last_match);
         }
     } else {

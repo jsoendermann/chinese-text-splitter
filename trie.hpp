@@ -19,7 +19,6 @@ class Trie {
         vector<wstring> split_text;
 
 
-
         // If s is in the Trie, this function returns its
         // state (starting from the root), otherwise it returns NULL
         State* get_state_for_word(const wstring &s);  
