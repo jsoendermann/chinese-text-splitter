@@ -17,9 +17,8 @@ class State {
 
         State();
 
-        // TODO change successor to child
-        State *get_successor(wchar_t c);
-        void add_successor(wchar_t c, State* successor);
+        State *get_child(wchar_t c);
+        void add_child(wchar_t c, State* child);
 #ifdef DEBUG
         wstring to_string(int indent_level);
 #endif

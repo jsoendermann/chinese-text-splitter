@@ -12,7 +12,7 @@ State* Trie::get_state_for_word(const wstring &s) {
     State *state = root;
 
     for (auto it = s.begin(); it != s.end(); it++) {
-        state = state->get_successor(*it);
+        state = state->get_child(*it);
 
         if (state == NULL) {
             return NULL;
@@ -42,15 +42,15 @@ void Trie::flush() {
 void Trie::feed_char(wchar_t c) {
     string_since_last_match += c;
 
-    auto successor = current_state->get_successor(c);
-    if (successor == NULL) {
-        no_successor_for_char(c);
+    auto child = current_state->get_child(c);
+    if (child == NULL) {
+        no_child_for_char(c);
     } else {
-        transition_to_successor_state(successor);
+        transition_to_child_state(child);
     }
 }
 
-void Trie::no_successor_for_char(wchar_t c) {
+void Trie::no_child_for_char(wchar_t c) {
     if (longest_match == L"") {
         cut_off_first_char_and_feed_rest_to_trie();
     } else {
@@ -64,8 +64,8 @@ void Trie::cut_off_first_char_and_feed_rest_to_trie() {
         feed_string(string_since_last_match.substr(1));
 }
 
-void Trie::transition_to_successor_state(State *successor) {
-    current_state = successor;
+void Trie::transition_to_child_state(State *child) {
+    current_state = child;
     if (current_state->is_final) {
         longest_match += string_since_last_match;
         string_since_last_match = L"";
@@ -83,11 +83,11 @@ void Trie::add_word(wstring word) {
     for (int i = 0; i < word_length; i++) {
         wchar_t c = word[i];
 
-        State *next_state = state->get_successor(c);
+        State *next_state = state->get_child(c);
 
         if (next_state == NULL) {
             next_state = new State();
-            state->add_successor(c, next_state);
+            state->add_child(c, next_state);
         } 
 
         state = next_state;
