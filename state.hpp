@@ -7,7 +7,7 @@ using namespace std;
 class State {
     private:
 #ifdef DEBUG
-        int id; // This is only used in to_string
+        int id;
 #endif
         unordered_map<wchar_t, State*> dict;
         
