@@ -53,8 +53,8 @@ void Trie::no_child_for_char(wchar_t c) {
 }
 
 void Trie::cut_off_first_char_and_feed_rest_to_trie() {
-        split_text.push_back(string_since_last_match.substr(0, 1));
-        feed_string(string_since_last_match.substr(1));
+    split_text.push_back(string_since_last_match.substr(0, 1));
+    feed_string(string_since_last_match.substr(1));
 }
 
 void Trie::transition_to_child_state(State *child) {
