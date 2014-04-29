@@ -35,7 +35,7 @@ void Trie::feed_string(wstring s) {
 void Trie::feed_char(wchar_t c) {
     string_since_last_match += c;
 
-    auto child = current_state->get_child(c);
+    State *child = current_state->get_child(c);
     if (child == NULL) {
         no_child_for_char(c);
     } else {
@@ -78,7 +78,7 @@ Trie::Trie() {
 }
 
 void Trie::add_word(wstring word) {
-    auto state = root;
+    State *state = root;
     size_t word_length = word.length();
 
     for (int i = 0; i < word_length; i++) {
