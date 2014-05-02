@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include <vector>
 
 #include "text-splitter.hpp"
@@ -8,9 +7,9 @@ using namespace std;
 
 int main(int argc, char **argv) {
     // Calling setlocale is necessary to make wcout work on Linux
-    setlocale(LC_ALL,"");
+    setlocale(LC_ALL, "");
     // Calling imbue is necessary to make wcout work on OS X
-    wcout.imbue(locale(locale(),"",LC_CTYPE));
+    wcout.imbue(locale(locale(), "", LC_CTYPE));
     
     TextSplitter *splitter = new TextSplitter("cedict-data.txt");
 
