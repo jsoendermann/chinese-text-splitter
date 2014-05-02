@@ -8,19 +8,6 @@
 using namespace std;
 
 
-State* Trie::get_state_for_word(const wstring &s) {
-    State *state = root;
-
-    for (auto it = s.begin(); it != s.end(); it++) {
-        state = state->get_child(*it);
-
-        if (state == NULL) {
-            return NULL;
-        }
-    }
-    return state;
-}
-
 void Trie::feed_string(wstring s) {
     // Reset the matching part of the Trie
     current_state = root;
